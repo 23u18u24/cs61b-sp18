@@ -39,7 +39,7 @@ public class Planet {
     public double calcForceExertedByX(Planet p) {
         double F = this.calcForceExertedBy(p);
         double d = this.calcDistance(p);
-        double xd = this.xxPos - p.xxPos;
+        double xd = Math.abs(this.xxPos - p.xxPos);
         double Fx = F * (xd / d);
         return Fx;
     }
@@ -47,7 +47,7 @@ public class Planet {
     public double calcForceExertedByY(Planet p) {
         double F = this.calcForceExertedBy(p);
         double d = this.calcDistance(p);
-        double yd = this.yyPos - p.yyPos;
+        double yd = Math.abs(this.yyPos - p.yyPos);
         double Fy = F * (yd / d);
         return Fy;
     }
@@ -78,6 +78,6 @@ public class Planet {
     }
 
     public void draw() {
-        StdDraw.picture(this.xxPos, this.yyPos, this.imgFileName);
+        StdDraw.picture(this.xxPos, this.yyPos, "images/" + this.imgFileName);
     }
 }
