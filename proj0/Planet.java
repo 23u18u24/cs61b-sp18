@@ -39,7 +39,7 @@ public class Planet {
     public double calcForceExertedByX(Planet p) {
         double F = this.calcForceExertedBy(p);
         double d = this.calcDistance(p);
-        double xd = Math.sqrt((this.xxPos - p.xxPos) * (this.xxPos - p.xxPos));
+        double xd = this.xxPos - p.xxPos;
         double Fx = F * (xd / d);
         return Fx;
     }
@@ -47,13 +47,13 @@ public class Planet {
     public double calcForceExertedByY(Planet p) {
         double F = this.calcForceExertedBy(p);
         double d = this.calcDistance(p);
-        double yd = Math.sqrt((this.yyPos - p.yyPos) * (this.yyPos - p.yyPos));
+        double yd = this.yyPos - p.yyPos;
         double Fy = F * (yd / d);
         return Fy;
     }
 
     public double calcNetForceExertedByX(Planet[] allp) {
-        double a = 0.0;
+        double a = 0;
         for (int i = 1; i < allp.length; i++) {
             a += this.calcForceExertedByX(allp[i]);
         }
