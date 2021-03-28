@@ -66,7 +66,7 @@ public class Planet {
         double a = 0;
         for (int i = 0; i < allp.length; i++) {
             if (!this.equals(allp[i])){
-                a += this.calcForceExertedByX(allp[i]);
+                a += this.calcForceExertedByY(allp[i]);
             }
         }
         return a;
