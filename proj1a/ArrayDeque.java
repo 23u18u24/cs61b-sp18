@@ -10,38 +10,42 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
-        if (size > 8 && size <= 16) {
+
+        if (size >= 8 && size <= 16) {
             T[] newarr = (T[]) new Object[size + 1];
-            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast - 1);
+            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast);
             arr = newarr;
         } else if (size > 16) {
             T[] newarr = (T[]) new Object[size * 4];
-            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast - 1);
+            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast);
             arr = newarr;
         }
         if (nextFirst < 0) {
-            nextFirst += size;
+            addLast(item);
+            return;
+        } else {
+            arr[nextFirst] = item;
         }
-        arr[nextFirst] = item;
-        nextFirst -= 1;
         size += 1;
+        nextFirst -= 1;
     }
 
     public void addLast(T item) {
         int mass = 8;
-        if (size > 8 && size <= 16) {
+        if (size >= 8 && size <= 16) {
             mass = size + 1;
             T[] newarr = (T[]) new Object[mass];
-            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast - 1);
+            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast);
             arr = newarr;
         } else if (size > 16) {
             mass = size * 4;
             T[] newarr = (T[]) new Object[mass];
-            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast - 1);
+            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast);
             arr = newarr;
         }
-        if (nextLast > mass) {
-            nextLast -= size;
+        if (nextLast >= mass) {
+            addFirst(item);
+            return;
         }
         arr[nextLast] = item;
         nextLast += 1;
@@ -81,5 +85,4 @@ public class ArrayDeque<T> {
     public T get(int index) {
         return arr[nextFirst + index];
     }
-
 }
