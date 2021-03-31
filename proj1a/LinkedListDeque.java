@@ -21,17 +21,20 @@ public class LinkedListDeque<T> {
     public LinkedListDeque() {
         sentFront = new Node(null, null, sentBack);
         sentBack = new Node(sentFront, null, null);
-        sentFront = new Node(null, null, sentBack);
+        sentFront.next = sentBack;
+        sentBack.prev = sentFront;
     }
 
     public void addFirst(T item) {
         Node n = new Node(sentFront, item, sentFront.next);
+        sentFront.next.prev = n;
         sentFront.next = n;
         size += 1;
     }
 
     public void addLast(T item) {
         Node n = new Node(sentBack.prev, item, sentBack);
+        sentBack.prev.next = n;
         sentBack.prev = n;
         size += 1;
     }
@@ -56,10 +59,9 @@ public class LinkedListDeque<T> {
         if (this.isEmpty()) {
             return null;
         }
-        Node p = sentFront.next;
-        T i = p.item;
-        p.next.prev = sentFront;
-        sentFront.next = p.next;
+        T i = sentFront.next.item;
+        sentFront.next.next.prev = sentFront;
+        sentFront.next = sentFront.next.next;
         size -= 1;
         return i;
     }
@@ -68,10 +70,9 @@ public class LinkedListDeque<T> {
         if (this.isEmpty()) {
             return null;
         }
-        Node p = sentBack.prev;
-        T i = p.item;
-        p.prev.next = sentBack;
-        sentBack.prev = p.prev;
+        T i = sentBack.prev.item;
+        sentBack.prev.prev.next = sentBack;
+        sentBack.prev = sentBack.prev.prev;
         size -= 1;
         return i;
     }
@@ -88,7 +89,7 @@ public class LinkedListDeque<T> {
     }
 
     private T getHelper(int index, Node p) {
-        if (index == 1) {
+        if (index == 0) {
             return p.item;
         }
         return getHelper(index - 1, p.next);
@@ -98,7 +99,6 @@ public class LinkedListDeque<T> {
         if (index > this.size() - 1) {
             return null;
         }
-        Node p = sentFront.next;
-        return getHelper(index, p);
+        return getHelper(index, sentFront.next);
     }
 }
