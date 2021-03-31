@@ -1,10 +1,10 @@
 public class ArrayDeque<T> {
 
-    public int size;
-    public T[] arr;
+    private int size;
+    private T[] arr;
 
     public ArrayDeque() {
-        arr = (T[])new Object[8];
+        arr = (T[]) new Object[8];
         arr = null;
         size = 0;
     }
@@ -14,12 +14,12 @@ public class ArrayDeque<T> {
             for (int i = 0; i < size; i += 1) {
                 arr[i + 1] = arr[i];
             }
-        } else if (size <= 16){
-            T[] new_arr = (T[])new Object[size + 1];
-            System.arraycopy(arr, 0, new_arr, 1, size);
-            arr = new_arr;
+        } else if (size <= 16) {
+            T[] newarr = (T[]) new Object[size + 1];
+            System.arraycopy(arr, 0, newarr, 1, size);
+            arr = newarr;
         } else {
-            T[] new_arr = (T[])new Object[size * 4];
+            T[] new_arr = (T[]) new Object[size * 4];
             System.arraycopy(arr, 0, new_arr, 1, arr.length);
             arr = new_arr;
         }
@@ -29,9 +29,9 @@ public class ArrayDeque<T> {
 
     public void addLast(T item) {
         if (size > 8) {
-            T[] new_arr = (T[]) new Object[size + 1];
-            System.arraycopy(arr, 0, new_arr, 0, size - 1);
-            arr = new_arr;
+            T[] newarr = (T[]) new Object[size + 1];
+            System.arraycopy(arr, 0, newarr, 0, size - 1);
+            arr = newarr;
         }
         arr[size] = item;
         size += 1;

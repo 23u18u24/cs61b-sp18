@@ -2,10 +2,10 @@ import java.util.LinkedList;
 
 public class LinkedListDeque<T> {
 
-    public class Node {
-        public Node prev;
-        public T item;
-        public Node next;
+    private class Node {
+        private Node prev;
+        private T item;
+        private Node next;
 
         public Node(Node p, T i, Node n) {
             prev = p;
@@ -14,9 +14,9 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public Node sentFront;
-    public Node sentBack;
-    public int size = 0;
+    private Node sentFront;
+    private Node sentBack;
+    private int size = 0;
 
     public LinkedListDeque() {
         sentFront = new Node(null, null, sentBack);
@@ -41,12 +41,6 @@ public class LinkedListDeque<T> {
     }
 
     public int size() {
-        /*int s = 0;
-        Node p = sentFront.next;
-        for (;p != sentBack; s += 1) {
-            p = p.next;
-        }
-        return s;*/
         return size;
     }
 
@@ -93,7 +87,7 @@ public class LinkedListDeque<T> {
         return p.item;
     }
 
-    public T getHelper(int index, Node p) {
+    private T getHelper(int index, Node p) {
         if (index == 1) {
             return p.item;
         }
