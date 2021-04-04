@@ -10,7 +10,7 @@ public class ArrayDeque<T> {
         arr = (T[]) new Object[8];
     }
 
-    public void expend() {
+    private void expend() {
         if (size >= mass) {
             int i = nextFirst + 1;
             if (size < 16) {
@@ -96,51 +96,5 @@ public class ArrayDeque<T> {
 
     public T get(int index) {
         return arr[nextFirst + index + 1];
-    }
-
-    public static void main(String[] args) {
-        ArrayDeque<Integer> a = new ArrayDeque<>();
-        a.addFirst(0);
-        a.addFirst(2);
-        a.addFirst(3);
-        //a.addLast(4);
-        a.addFirst(5);
-        a.addFirst(6);
-        a.addFirst(7);
-        a.addFirst(8);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.addFirst(9);
-        a.printDeque();
     }
 }
