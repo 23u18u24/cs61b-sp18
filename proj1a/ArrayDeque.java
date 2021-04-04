@@ -1,48 +1,51 @@
 public class ArrayDeque<T> {
 
     private int size = 0;
-    private int nextFirst = 4;
-    private int nextLast = 5;
-    private T[] arr;
     private int mass = 8;
+    private int nextFirst = 0;
+    private int nextLast = 1;
+    private T[] arr;
 
     public ArrayDeque() {
         arr = (T[]) new Object[8];
     }
 
-    public void addFirst(T item) {
-        if (size >= 8 && size <= 16) {
-            mass = size + 1;
+    public void expend() {
+        if (size >= mass) {
+            int i = nextFirst + 1;
+            if (size < 16) {
+                mass += 1;
+                nextFirst = size;
+                nextLast = size;
+            } else {
+                mass *= 2;
+            }
             T[] newarr = (T[]) new Object[mass];
-            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast);
-            arr = newarr;
-        } else if (size > 16) {
-            mass = size * 4;
-            T[] newarr = (T[]) new Object[mass];
-            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast);
+            for (int j = 0; j < size; j += 1) {
+                if (i == size) {
+                    i = 0;
+                    newarr[j] = arr[i];
+                } else {
+                    newarr[j] = arr[i];
+                }
+                i += 1;
+            }
             arr = newarr;
         }
+    }
+
+    public void addFirst(T item) {
+        expend();
         if (nextFirst < 0) {
             nextFirst += mass;
-        } else {
-            arr[nextFirst] = item;
         }
+        arr[nextFirst] = item;
         size += 1;
         nextFirst -= 1;
     }
 
     public void addLast(T item) {
-        if (size >= 8 && size <= 16) {
-            mass = size + 1;
-            T[] newarr = (T[]) new Object[mass];
-            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast);
-            arr = newarr;
-        } else if (size > 16) {
-            mass = size * 4;
-            T[] newarr = (T[]) new Object[mass];
-            System.arraycopy(arr, nextFirst + 1, newarr, nextFirst + 1, nextLast);
-            arr = newarr;
-        }
+        expend();
         if (nextLast >= mass) {
             nextLast -= mass;
         }
@@ -52,7 +55,7 @@ public class ArrayDeque<T> {
     }
 
     public boolean isEmpty() {
-        return nextLast - nextFirst == 1;
+        return size == 0;
     }
 
     public int size() {
@@ -60,8 +63,12 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        for (int i = nextFirst + 1; i < size; i += 1) {
-            System.out.print(arr[i] + " ");
+        int i = 0;
+        while (i < size) {
+            if (arr[i] != null) {
+                System.out.print(arr[i] + " ");
+            }
+            i += 1;
         }
     }
 
@@ -89,5 +96,51 @@ public class ArrayDeque<T> {
 
     public T get(int index) {
         return arr[nextFirst + index + 1];
+    }
+
+    public static void main(String[] args) {
+        ArrayDeque<Integer> a = new ArrayDeque<>();
+        a.addFirst(0);
+        a.addFirst(2);
+        a.addFirst(3);
+        //a.addLast(4);
+        a.addFirst(5);
+        a.addFirst(6);
+        a.addFirst(7);
+        a.addFirst(8);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.addFirst(9);
+        a.printDeque();
     }
 }
