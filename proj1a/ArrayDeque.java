@@ -1,7 +1,6 @@
 public class ArrayDeque<T> {
 
     private int size = 0;
-    private int mass = 8;
     private int nextFirst = 0;
     private int nextLast = 1;
     private T[] arr;
@@ -10,47 +9,60 @@ public class ArrayDeque<T> {
         arr = (T[]) new Object[8];
     }
 
-    private void expend() {
-        if (size >= mass) {
-            int i = nextFirst + 1;
-            if (size < 16) {
-                mass += 1;
-                nextFirst = size;
-                nextLast = size;
-            } else {
-                mass *= 2;
-            }
-            T[] newarr = (T[]) new Object[mass];
-            for (int j = 0; j < size; j += 1) {
-                if (i == size) {
-                    i = 0;
-                    newarr[j] = arr[i];
-                } else {
-                    newarr[j] = arr[i];
-                }
-                i += 1;
-            }
-            arr = newarr;
+    private int plusOne(int index) {
+        return Math.floorMod(index + 1, arr.length);
+    }
+
+    private int plusOne(int index, int length) {
+        return Math.floorMod(index + 1, length);
+    }
+
+    private int minusOne(int index) {
+        return Math.floorMod(index - 1, arr.length);
+    }
+
+    private void expand() {
+        resizeHelper(arr.length * 2);
+    }
+
+    private void reduce() {
+        resizeHelper(arr.length / 2);
+    }
+
+    private void resize() {
+        if (size == arr.length) {
+            expand();
+        } else if (size < arr.length / 4 && arr.length > 8) {
+            reduce();
         }
+    }
+
+    private void resizeHelper(int capacity) {
+        T[] temp = arr;
+        arr = (T[]) new Object[capacity];
+        int begin = plusOne(nextFirst);
+        int end = minusOne(nextLast);
+        nextFirst = 0;
+        nextLast = 1;
+        for (int i = begin; i != end; i = plusOne(i, temp.length)) {
+            arr[nextLast] = temp[i];
+            nextLast = plusOne(nextLast);
+        }
+        arr[nextLast] = temp[end];
+        nextLast = plusOne(nextLast);
     }
 
     public void addFirst(T item) {
-        expend();
-        if (nextFirst < 0) {
-            nextFirst += mass;
-        }
+        resize();
         arr[nextFirst] = item;
+        nextFirst = minusOne(nextFirst);
         size += 1;
-        nextFirst -= 1;
     }
 
     public void addLast(T item) {
-        expend();
-        if (nextLast >= mass) {
-            nextLast -= mass;
-        }
+        resize();
         arr[nextLast] = item;
-        nextLast += 1;
+        nextLast = plusOne(nextLast);
         size += 1;
     }
 
@@ -63,12 +75,8 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        int i = 0;
-        while (i < size) {
-            if (arr[i] != null) {
-                System.out.print(arr[i] + " ");
-            }
-            i += 1;
+        for (int i = plusOne(nextFirst); i != nextLast; i = plusOne(i)) {
+            System.out.print(arr[i] + " ");
         }
     }
 
@@ -76,9 +84,9 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        T temp = arr[nextFirst + 1];
-        arr[nextFirst + 1] = null;
-        nextFirst += 1;
+        T temp = arr[plusOne(nextFirst)];
+        arr[plusOne(nextFirst)] = null;
+        nextFirst = plusOne(nextFirst);
         size -= 1;
         return temp;
     }
@@ -87,14 +95,14 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         }
-        T temp = arr[nextLast - 1];
-        arr[nextLast - 1] = null;
-        nextLast -= 1;
+        T temp = arr[minusOne(nextLast)];
+        arr[minusOne(nextLast)] = null;
+        nextLast = minusOne(nextLast);
         size -= 1;
         return temp;
     }
 
     public T get(int index) {
-        return arr[nextFirst + index + 1];
+        return arr[Math.floorMod(plusOne(nextFirst) + index, arr.length)];
     }
 }
