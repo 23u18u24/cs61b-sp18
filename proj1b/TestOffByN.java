@@ -1,8 +1,10 @@
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class TestOffByN {
     static CharacterComparator offby5;
+
     @Test
     public void equalChars() {
         offby5 = new OffByN(5);
