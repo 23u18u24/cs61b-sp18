@@ -78,6 +78,7 @@ public class ArrayDeque<T> {
         for (int i = plusOne(nextFirst); i != nextLast; i = plusOne(i)) {
             System.out.print(arr[i] + " ");
         }
+        System.out.println();
     }
 
     public T removeFirst() {
