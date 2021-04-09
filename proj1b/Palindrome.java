@@ -8,6 +8,7 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word) {
+        word = word.toUpperCase();
         Palindrome d = new Palindrome();
         Deque<Character> a = d.wordToDeque(word);
         String newWord = "";
@@ -23,6 +24,7 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word, CharacterComparator cc) {
+        word = word.toUpperCase();
         if (word.length() <= 1) {
             return true;
         } else if (word.charAt(0) == word.charAt(word.length() - 1)) {
