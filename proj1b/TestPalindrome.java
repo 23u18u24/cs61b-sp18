@@ -23,19 +23,26 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome(""));
         assertTrue(palindrome.isPalindrome("racecar"));
         assertTrue(palindrome.isPalindrome("noon"));
-
         assertFalse(palindrome.isPalindrome("cat"));
         assertFalse(palindrome.isPalindrome("aaaaaaaab"));
         assertFalse(palindrome.isPalindrome("ma"));
+    }
 
-        CharacterComparator cc = new OffByOne();
-        assertTrue(palindrome.isPalindrome("a", cc));
-        assertTrue(palindrome.isPalindrome("", cc));
-        assertTrue(palindrome.isPalindrome("racecar", cc));
-        assertTrue(palindrome.isPalindrome("noon", cc));
+    @Test
+    public void testPalindrome() {
+        OffByOne offByOne = new OffByOne();
+        assertTrue(palindrome.isPalindrome("flake", offByOne));
+        assertFalse(palindrome.isPalindrome("aaabbbaaa", offByOne));
+        assertTrue(palindrome.isPalindrome("", offByOne));
+        assertTrue(palindrome.isPalindrome("&", offByOne));
+    }
 
-        assertFalse(palindrome.isPalindrome("cat", cc));
-        assertFalse(palindrome.isPalindrome("aaaaaaaab", cc));
-        assertFalse(palindrome.isPalindrome("ma", cc));
+    @Test
+    public void testPalindromeByN() {
+        OffByN offByN = new OffByN(6);
+        assertTrue(palindrome.isPalindrome("gmdjgm", offByN));
+        assertFalse(palindrome.isPalindrome("aaabbbaa", offByN));
+        assertTrue(palindrome.isPalindrome("", offByN));
+        assertTrue(palindrome.isPalindrome("&", offByN));
     }
 }

@@ -11,9 +11,7 @@ public class Palindrome {
         if (word == "aba") {
             return false;
         }
-        word = word.toUpperCase();
-        Palindrome d = new Palindrome();
-        Deque<Character> a = d.wordToDeque(word);
+        Deque<Character> a = wordToDeque(word);
         String newWord = "";
         if (a.size() <= 1) {
             return true;
@@ -30,10 +28,10 @@ public class Palindrome {
         if (word == "aba") {
             return false;
         }
-        word = word.toUpperCase();
-        if (word.length() <= 1) {
+        Deque<Character> a = wordToDeque(word);
+        if (a.size() <= 1) {
             return true;
-        } else if (cc.equalChars(word.charAt(0), word.charAt(word.length() - 1))) {
+        } else if (cc.equalChars((char) a.removeFirst(), (char) a.removeLast())) {
             return isPalindrome(word.substring(1, word.length() - 1), cc);
         }
         return false;
