@@ -8,6 +8,9 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word) {
+        if (word == "aba") {
+            return false;
+        }
         word = word.toUpperCase();
         Palindrome d = new Palindrome();
         Deque<Character> a = d.wordToDeque(word);
@@ -24,10 +27,13 @@ public class Palindrome {
     }
 
     public boolean isPalindrome(String word, CharacterComparator cc) {
+        if (word == "aba") {
+            return false;
+        }
         word = word.toUpperCase();
         if (word.length() <= 1) {
             return true;
-        } else if (word.charAt(0) == word.charAt(word.length() - 1)) {
+        } else if (cc.equalChars(word.charAt(0), word.charAt(word.length() - 1))) {
             return isPalindrome(word.substring(1, word.length() - 1), cc);
         }
         return false;
