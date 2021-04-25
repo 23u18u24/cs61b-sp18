@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 //TODO: Make sure to make this class and all of its methods public
 //TODO: Make sure to make this class extend AbstractBoundedQueue<t>
-public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
+public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>{
     /* Index for the next dequeue or peek. */
     private int first;            // index for the next dequeue or peek
     /* Index for the next enqueue. */
@@ -72,4 +72,41 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     }
 
     // TODO: When you get to part 5, implement the needed code to support iteration.
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayRingIterator();
+    }
+
+    @Override
+    public boolean hasNext() {
+        ArrayRingIterator a = new ArrayRingIterator();
+        return a.hasNext();
+    }
+
+    @Override
+    public T next() {
+        ArrayRingIterator a = new ArrayRingIterator();
+        return a.next();
+    }
+
+    private class ArrayRingIterator implements Iterator<T>{
+        private int currpos;
+        private int count;
+
+        public ArrayRingIterator() {
+            currpos = first;
+            count = 0;
+        }
+        @Override
+        public boolean hasNext() {
+            return count < fillCount;
+        }
+        @Override
+        public T next() {
+            T returnItem = rb[currpos];
+            currpos = (currpos + 1) % capacity;
+            count += 1;
+            return returnItem;
+        }
+    }
 }
