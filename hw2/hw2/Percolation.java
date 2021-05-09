@@ -107,7 +107,7 @@ public class Percolation {
     // does the system percolate?
     public boolean percolates() {
         if (N == 1 || N == 2) {
-            return  true;
+            return true;
         }
         for (int i = N * N - 1; i > N * N - N; i--) {
             if (intN[i] == -1) {

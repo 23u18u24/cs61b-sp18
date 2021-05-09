@@ -12,7 +12,6 @@ public class PercolationStats {
             throw new IllegalArgumentException();
         }
         num = new double[T];
-        pf = new PercolationFactory();
         for (int i = 0; i < T; i++) {
             Percolation system = pf.make(N);
             while (!system.percolates()) {
