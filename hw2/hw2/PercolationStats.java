@@ -8,16 +8,23 @@ public class PercolationStats {
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
-        StdRandom.setSeed(N * N);
-        num = new double[T];
-        for (int i = 0; i < T; i++) {
-            num[i] = StdRandom.getSeed();
-        }
         if (N <= 0 || T <= 0) {
             throw new IllegalArgumentException();
         }
+        num = new double[T];
         pf = new PercolationFactory();
-        pf.make(N * N);
+        for (int i = 0; i < T; i++) {
+            Percolation system = pf.make(N);
+            while (!system.percolates()) {
+                int row = StdRandom.uniform(N);
+                int col = StdRandom.uniform(N);
+                if (!system.isOpen(row, col)) {
+                    system.open(row, col);
+                }
+            }
+            double threshold = (double) system.numberOfOpenSites() / (N * N);
+            num[i] = threshold;
+        }
     }
 
     // sample mean of percolation threshold

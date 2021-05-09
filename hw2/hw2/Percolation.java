@@ -10,7 +10,9 @@ public class Percolation {
 
     // create N-by-N grid, with all sites initially blocked
     public Percolation(int N) {
-        if (N <= 0) throw new IllegalArgumentException();
+        if (N <= 0) {
+            throw new IllegalArgumentException();
+        }
         this.N = N;
         intN = new int[N * N];
         size = 0;
@@ -29,7 +31,7 @@ public class Percolation {
         return N * row + col;
     }
 
-    private int Union(int index) {
+    private int perUnion(int index) {
         int n1 = 0, n2 = 0, n3 = 0, n4 = 0;
         if (isLegal(index + 1) && intN[index + 1] != 0) {
             uf.union(index, index + 1);
@@ -67,7 +69,7 @@ public class Percolation {
                 intN[index] = 1;
             }
             size += 1;
-            int newNum = Union(index);
+            int newNum = perUnion(index);
             intN[index] = newNum;
             if (intN[index] == -1) {
                 for (int i = 0; i < N * N; i++) {
@@ -90,6 +92,9 @@ public class Percolation {
 
     // is the site (row, col) full?
     public boolean isFull(int row, int col) {
+        if (!isLegal(row, col)) {
+            throw new IndexOutOfBoundsException();
+        }
         int index = xyTo1D(row, col);
         return intN[index] == -1;
     }
@@ -101,6 +106,9 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
+        if (N == 1 || N == 2) {
+            return  true;
+        }
         for (int i = N * N - 1; i > N * N - N; i--) {
             if (intN[i] == -1) {
                 return true;
