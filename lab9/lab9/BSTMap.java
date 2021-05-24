@@ -111,8 +111,12 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     private void keySetHelper(Set<K> set, Node p) {
         set.add(p.key);
-        keySetHelper(set, p.left);
-        keySetHelper(set, p.right);
+        if (p.left != null) {
+            keySetHelper(set, p.left);
+        }
+        if (p.right != null) {
+            keySetHelper(set, p.right);
+        }
     }
 
     /* Returns a Set view of the keys contained in this map. */
