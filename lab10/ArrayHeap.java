@@ -178,8 +178,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         Node root = contents[1];
         Node one = contents[size];
         contents[1] = one;
-        size--;
         sink(1);
+        size--;
         return root.myItem;
     }
 
