@@ -33,10 +33,14 @@ public class Solver {
             result = X;
             return;
         }
-        X.count = X.prevNode.count + 1;
+        if (X.prevNode == null) {
+            X.count = 0;
+        } else {
+            X.count = X.prevNode.count + 1;
+        }
         for (WorldState w : X.ws.neighbors()) {
             SearchNode n = new SearchNode(w,  X.count + w.estimatedDistanceToGoal(), X);
-            if (w == X.prevNode.ws) {
+            if (X.prevNode != null && w == X.prevNode.ws) {
                 continue;
             } else {
                 pq.insert(n);

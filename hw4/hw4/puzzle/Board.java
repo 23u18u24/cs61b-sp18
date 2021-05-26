@@ -65,25 +65,74 @@ public class Board implements WorldState {
     }
     /* Hamming estimate described below */
     public int hamming() {
-        return -1;
+        int mistakeC = 0;
+        int expectedV = 1;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (tileAt(i, j) != expectedV) {
+                    mistakeC++;
+                }
+                expectedV++;
+            }
+        }
+        return mistakeC;
     }
     /* Manhattan estimate described below */
     public int manhattan() {
-        return -1;
+        int distance = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                int actualV = tileAt(i, j);
+                if (actualV == 0) {
+                    continue;
+                }
+                int expectedRow = (actualV - 1) / N;
+                int expectedCol = (actualV - 1) % N;
+                distance = Math.abs(expectedCol - j) + Math.abs(expectedRow - i);
+            }
+        }
+        return distance;
     }
     /* Estimated distance to goal. This method should simply return
     the results of manhattan() when submitted to Gradescope.*/
     public int estimatedDistanceToGoal() {
-        return -1;
+        return manhattan();
     }
     /* Returns true if this board's tile values are the same
        position as y's*/
     public boolean equals(Object y) {
+        if (this == y) {
+            return true;
+        }
+        if (y == null || y.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Board otherBoard = (Board) y;
+        if (N != otherBoard.N) {
+            return false;
+        }
+        for (int r = 0; r < N; r += 1) {
+            for (int c = 0; c < N; c += 1) {
+                if (this.tileAt(r, c) != otherBoard.tileAt(r, c)) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
     /* Returns the string representation of the board. This
        method is provided in the skeleton*/
     public String toString() {
-        return "";
+        StringBuilder s = new StringBuilder();
+        s.append(N + "\n");
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                s.append(String.format("%2d ", tileAt(i, j)));
+            }
+            s.append("\n");
+        }
+        s.append("\n");
+        return s.toString();
     }
 }
