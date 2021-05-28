@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.Queue;
 
+import java.util.Arrays;
+
 public class MergeSort {
     /**
      * Removes and returns the smallest item that is in q1 or q2.
