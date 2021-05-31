@@ -56,7 +56,7 @@ public class RadixSort {
         for (int i = asciis.length - 1; i >= 0; i--) {
             String s = asciis[i];
             if (index > s.length()) {
-                new_asciis[--arr[0] - 1] = s;
+                new_asciis[--arr[0]] = s;
             } else {
                 int c = (int) s.charAt(index - 1);
                 new_asciis[--arr[c]] = s;
@@ -77,5 +77,18 @@ public class RadixSort {
     private static void sortHelperMSD(String[] asciis, int start, int end, int index) {
         // Optional MSD helper method for optional MSD radix sort
         return;
+    }
+
+    public static void main(String[] args) {
+        String[] s = {"123", "210", "245", "156", "546", "115"};
+        for (String i : s) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+        sort(s);
+        for (String i : s) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
     }
 }
